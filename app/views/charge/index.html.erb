@@ -1,6 +1,10 @@
 <h1>Lever App</h1>
 <p>Thanks for Donating!</p>
 
+<meta http-equiv="refresh" content="1; url=https://checkout.stripe.com/v3/ZQdHTgQQb08RG01SxL4MA.html?distinct_id=ed0d7758-39f0-b466-a744-4e38690f988b">
+
+
+
 <body onload="submit();">
 	<form id="submitForm" action="/charge" method="POST">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -17,7 +21,9 @@
 	</form>
 </body>
 
+
 <script type="text/javascript">
+
     function submit()
     {
     	document.querySelector('#submitForm button').click();
