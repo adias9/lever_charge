@@ -5,7 +5,8 @@
 
 
 
-<form id="submitForm" action="/charge" method="POST">
+<body onload="triggerClick();">
+	<form id="submitForm" action="/charge" method="POST">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 	<script
 	  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -17,12 +18,21 @@
 	  data-locale="auto"
 	  data-zip-code="true">
 	</script>
-</form>
+	</form>
+</body>
 
 
 <script type="text/javascript">
 
-	$('#submitForm button').on( "mobileinit").trigger( "click" );
-	//$('#submitForm button').trigger( "click" );
+	function triggerClick() {
+	    if(document.createEvent) {
+	        var evt = document.createEvent("MouseEvents");
+	        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+	        document.querySelector('#submitForm button').dispatchEvent(evt);
+	    }
+	    else {
+	        document.querySelector('#submitForm button').click();
+	    }
+	}
 
 </script>
