@@ -1,16 +1,26 @@
 <h1>Lever App</h1>
 <p>Thanks for Donating!</p>
 
-<form action="/charge" method="POST">
-<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-<script
-  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-  data-key="<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>"
-  data-amount="1000"
-  data-name="Name of Cause"
-  data-description="Description of Cause"
-  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-  data-locale="auto"
-  data-zip-code="true">
+<body onload="submit();">
+	<form id="submitForm" action="/charge" method="POST">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<script
+	  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+	  data-key="<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>"
+	  data-amount="1000"
+	  data-name="Name of Cause"
+	  data-description="Description of Cause"
+	  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+	  data-locale="auto"
+	  data-zip-code="true">
+	</script>
+	</form>
+</body>
+
+<script type="text/javascript">
+    function submit()
+    {
+    	document.querySelector('#submitForm button').click();
+    	console.log("hello");
+    }
 </script>
-</form>

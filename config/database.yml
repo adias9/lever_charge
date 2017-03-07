@@ -11,15 +11,20 @@ default: &default
 
 development:
   <<: *default
-  database: lever_development
+  host: localhost
+  username: <%= ENV["DATABASE_USER"] %> 
+  password: <%= ENV["DATABASE_PASSWORD"] %>  
+  database: loure_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: lever_test
+  username: <%= ENV["DATABASE_USER"] %> 
+  password: <%= ENV["DATABASE_PASSWORD"] %> 
+  database: loure_test
 
 production:
   <<: *default
-  database: lever_production
+  database: lever_charge_production
