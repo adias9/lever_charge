@@ -1,7 +1,7 @@
 <div class="col-sm-12">
-	
 	<div class="col-sm-12 text-center">
-		<h1>Lever App</h1>
+		<%= image_tag "leverlogoPNG", style: "width: 60%;" %>
+		<h1 style="margin-top: 0px;">Lever App</h1>
 		<p>Thanks for Donating!</p>
 	</div>
 
@@ -9,23 +9,24 @@
 
 	<!-- <meta http-equiv="refresh" content="1; url=https://checkout.stripe.com/v3/ZQdHTgQQb08RG01SxL4MA.html?distinct_id=ed0d7758-39f0-b466-a744-4e38690f988b"> -->
 
-
-	<%= form_tag charge_path do %>
-	  <article>
-	    <%= label_tag(:amount, 'Donation Amount:') %>
-	    <%= text_field_tag(:amount) %>
-	  </article>
-	  <article>
-	    <%= hidden_field_tag(:stripeToken) %>
-	  </article>
-	  <div id="error_explanation">
-	    <% if flash[:error].present? %>
-	      <p><%= flash[:error] %></p>
-	    <% end %>
-	  </div>
-	  <br>
-	  <button type="button" id='donateButton' class="btn btn-primary">Donate</button>
-	<% end %>
+	<div class="col-sm-12 text-center">
+		<%= form_tag charge_path do %>
+		  <article>
+		    <%= label_tag(:amount, 'Donation Amount:') %> <br>
+		    <%= text_field_tag(:amount) %>
+		  </article>
+		  <article>
+		    <%= hidden_field_tag(:stripeToken) %>
+		  </article>
+		  <div id="error_explanation">
+		    <% if flash[:error].present? %>
+		      <p><%= flash[:error] %></p>
+		    <% end %>
+		  </div>
+		  <br>
+		  <button type="button" id='donateButton' class="btn btn-primary">Donate</button>
+		<% end %>
+	</div>
 
 	<br>
 
@@ -37,7 +38,6 @@
   data-amount="1000"
   data-name="Name of Cause"
   data-description="Description of Cause"
-  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
   data-locale="auto"
   data-zip-code="true"
   style="display: hidden !important;">
@@ -64,7 +64,7 @@ $("#amount").keyup(function(event){
 var handler = StripeCheckout.configure({
   key: '<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>',
   locale: 'auto',
-  name: 'Sand Castles United',
+  name: 'Lever App',
   description: 'One-time donation',
   token: function(token) {
     $('#stripeToken').val(token.id);

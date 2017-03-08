@@ -31,7 +31,7 @@ class ChargeController < ApplicationController
 	    :amount => @amount,
 	    :currency => 'usd',
 	    :source => params[:stripeToken],
-	    :description => 'Custom donation'
+	    :description => 'Lever App Donation'
 	  )
 
 	  rescue Stripe::CardError => e
