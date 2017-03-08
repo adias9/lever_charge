@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'stripe'
 gem "figaro"
 gem "pg"
+gem 'bootstrap-sass'
 
 
 

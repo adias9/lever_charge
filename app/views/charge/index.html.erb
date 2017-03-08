@@ -1,29 +1,35 @@
+<div class="col-sm-12">
+	
+	<div class="col-sm-12 text-center">
+		<h1>Lever App</h1>
+		<p>Thanks for Donating!</p>
+	</div>
 
-<h1>Lever App</h1>
-<p>Thanks for Donating!</p>
 
 
-<!-- <meta http-equiv="refresh" content="1; url=https://checkout.stripe.com/v3/ZQdHTgQQb08RG01SxL4MA.html?distinct_id=ed0d7758-39f0-b466-a744-4e38690f988b"> -->
+	<!-- <meta http-equiv="refresh" content="1; url=https://checkout.stripe.com/v3/ZQdHTgQQb08RG01SxL4MA.html?distinct_id=ed0d7758-39f0-b466-a744-4e38690f988b"> -->
 
 
-<%= form_tag charge_path do %>
-  <article>
-    <%= label_tag(:amount, 'Donation Amount:') %>
-    <%= text_field_tag(:amount) %>
-  </article>
-  <article>
-    <%= hidden_field_tag(:stripeToken) %>
-  </article>
-  <div id="error_explanation">
-    <% if flash[:error].present? %>
-      <p><%= flash[:error] %></p>
-    <% end %>
-  </div>
-  <br>
-  <button id='donateButton' class="stripe-button">Donate</button>
-<% end %>
+	<%= form_tag charge_path do %>
+	  <article>
+	    <%= label_tag(:amount, 'Donation Amount:') %>
+	    <%= text_field_tag(:amount) %>
+	  </article>
+	  <article>
+	    <%= hidden_field_tag(:stripeToken) %>
+	  </article>
+	  <div id="error_explanation">
+	    <% if flash[:error].present? %>
+	      <p><%= flash[:error] %></p>
+	    <% end %>
+	  </div>
+	  <br>
+	  <button type="button" id='donateButton' class="btn btn-primary">Donate</button>
+	<% end %>
 
-<br>
+	<br>
+
+</div>
 
 <script
   src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -63,7 +69,7 @@ $('#donateButton').on('click', function(e) {
   if (isNaN(amount)) {
     $('#error_explanation').html('<p>Please enter a valid amount in USD ($).</p>');
   }
-  else if (amount < 5.00) {
+  else if (amount < 1.00) {
     $('#error_explanation').html('<p>Donation amount must be at least $1.</p>');
   }
   else {
