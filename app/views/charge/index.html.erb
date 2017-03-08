@@ -1,8 +1,8 @@
 <div class="col-xs-12">
 	<div class="col-xs-12 text-center">
 		<%= image_tag "leverlogoPNG.png", style: "width: 60%;" %>
-		<h1 style="margin-top: 0px;">Lever App</h1>
-		<p>Thanks for Donating!</p>
+		<h1 style="margin-top: 0px; font-size: 80px;">Lever App</h1>
+		<p style="font-size: 40px;">Thanks for Donating!</p>
 	</div>
 
 
@@ -12,7 +12,7 @@
 	<div class="col-xs-12 text-center">
 		<%= form_tag charge_path do %>
 		  <article>
-		    <%= label_tag(:amount, 'Donation Amount:') %> <br>
+		    <%= label_tag(:amount, 'Donation Amount:', style: "font-size: 20px;" )%> <br>
 		    <%= text_field_tag(:amount) %>
 		  </article>
 		  <article>
@@ -20,7 +20,7 @@
 		  </article>
 		  <div id="error_explanation">
 		    <% if flash[:error].present? %>
-		      <p><%= flash[:error] %></p>
+		      <p style="font-size: 20px;"><%= flash[:error] %></p>
 		    <% end %>
 		  </div>
 		  <br>
@@ -83,10 +83,10 @@ $('#donateButton').on('click', function(e) {
   amount = parseFloat(amount);
 
   if (isNaN(amount)) {
-    $('#error_explanation').html('<p>Please enter a valid amount in USD ($).</p>');
+    $('#error_explanation').html('<p style="font-size: 20px;">Please enter a valid amount in USD ($).</p>');
   }
   else if (amount < 1.00) {
-    $('#error_explanation').html('<p>Donation amount must be at least $1.</p>');
+    $('#error_explanation').html('<p style="font-size: 20px;>Donation amount must be at least $1.</p>');
   }
   else {
     amount = amount * 100; // Needs to be an integer!
