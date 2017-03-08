@@ -1,7 +1,7 @@
 @import "bootstrap";
 
 body {
-	background-color: #E5E6F4;
+	background-color: #E5E6F4 !important;
 }
 
 
