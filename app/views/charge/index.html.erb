@@ -7,11 +7,6 @@
 
 
 <%= form_tag charge_path do %>
-  <div id="error_explanation">
-    <% if flash[:error].present? %>
-      <p><%= flash[:error] %></p>
-    <% end %>
-  </div>
   <article>
     <%= label_tag(:amount, 'Donation Amount:') %>
     <%= text_field_tag(:amount) %>
@@ -19,6 +14,11 @@
   <article>
     <%= hidden_field_tag(:stripeToken) %>
   </article>
+  <div id="error_explanation">
+    <% if flash[:error].present? %>
+      <p><%= flash[:error] %></p>
+    <% end %>
+  </div>
   <br>
   <button id='donateButton' class="stripe-button">Donate</button>
 <% end %>
@@ -64,7 +64,7 @@ $('#donateButton').on('click', function(e) {
     $('#error_explanation').html('<p>Please enter a valid amount in USD ($).</p>');
   }
   else if (amount < 5.00) {
-    $('#error_explanation').html('<p>Donation amount must be at least $5.</p>');
+    $('#error_explanation').html('<p>Donation amount must be at least $1.</p>');
   }
   else {
     amount = amount * 100; // Needs to be an integer!
