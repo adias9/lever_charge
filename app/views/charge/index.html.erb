@@ -1,38 +1,98 @@
+
 <h1>Lever App</h1>
 <p>Thanks for Donating!</p>
+
 
 <!-- <meta http-equiv="refresh" content="1; url=https://checkout.stripe.com/v3/ZQdHTgQQb08RG01SxL4MA.html?distinct_id=ed0d7758-39f0-b466-a744-4e38690f988b"> -->
 
 
+<%= form_tag charge_path do %>
+  <div id="error_explanation">
+    <% if flash[:error].present? %>
+      <p><%= flash[:error] %></p>
+    <% end %>
+  </div>
+  <article>
+    <%= label_tag(:amount, 'Donation Amount:') %>
+    <%= text_field_tag(:amount) %>
+  </article>
+  <article>
+    <%= hidden_field_tag(:stripeToken) %>
+  </article>
+  <br>
+  <button id='donateButton' class="stripe-button">Donate</button>
+<% end %>
 
-<body onload="triggerClick();">
-	<form id="submitForm" action="/charge" method="POST">
-	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-	<script
-	  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-	  data-key="<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>"
-	  data-amount="1000"
-	  data-name="Name of Cause"
-	  data-description="Description of Cause"
-	  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-	  data-locale="auto"
-	  data-zip-code="true">
-	</script>
-	</form>
-</body>
+<br>
+
+<script
+  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+  data-key="<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>"
+  data-amount="1000"
+  data-name="Name of Cause"
+  data-description="Description of Cause"
+  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+  data-locale="auto"
+  data-zip-code="true"
+  style="display: hidden !important;">
+</script>
+
+<script>
+
+var handler = StripeCheckout.configure({
+  key: '<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>',
+  locale: 'auto',
+  name: 'Sand Castles United',
+  description: 'One-time donation',
+  token: function(token) {
+    $('#stripeToken').val(token.id);
+    $('form').submit();
+  }
+});
+
+$('#donateButton').on('click', function(e) {
+  e.preventDefault();
+
+  $('#error_explanation').html('');
+
+  var amount = $('#amount').val();
+  amount = amount.replace(/\$/g, '').replace(/\,/g, '')
+
+  amount = parseFloat(amount);
+
+  if (isNaN(amount)) {
+    $('#error_explanation').html('<p>Please enter a valid amount in USD ($).</p>');
+  }
+  else if (amount < 5.00) {
+    $('#error_explanation').html('<p>Donation amount must be at least $5.</p>');
+  }
+  else {
+    amount = amount * 100; // Needs to be an integer!
+    handler.open({
+      amount: Math.round(amount)
+    })
+  }
+});
+
+$(window).on('popstate', function() {
+  handler.close();
+});
+</script>
+
+
 
 
 <script type="text/javascript">
 
-	function triggerClick() {
-	    if(document.createEvent) {
-	        var evt = document.createEvent("MouseEvents");
-	        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-	        document.querySelector('#submitForm button').dispatchEvent(evt);
-	    }
-	    else {
-	        document.querySelector('#submitForm button').click();
-	    }
-	}
+	// function triggerClick() {
+	//     if(document.createEvent) {
+	//         var evt = document.createEvent("MouseEvents");
+	//         evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+	//         document.querySelector('#submitForm button').dispatchEvent(evt);
+	//     }
+	//     else {
+	//         document.querySelector('#submitForm button').click();
+	//     }
+	// }
 
 </script>

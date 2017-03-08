@@ -4,27 +4,39 @@ class ChargeController < ApplicationController
 
   def charge_card
   	# Set your secret key: remember to change this to your live secret key in production
-	# See your keys here: https://dashboard.stripe.com/account/apikeys
-	Stripe.api_key = ENV["STRIPE_API_KEY"]
+		# See your keys here: https://dashboard.stripe.com/account/apikeys
+  	Stripe.api_key = ENV["STRIPE_API_KEY"]
 
+  	@amount = params[:amount]
 
-	# Token is created using Stripe.js or Checkout!
-	# Get the payment token submitted by the form:
-	token = params[:stripeToken]
-	email = params[:stripeEmail]
+	  @amount = @amount.gsub('$', '').gsub(',', '')
 
-	# # Create a Customer:
-	# customer = Stripe::Customer.create(
-	#   :email => "paying.user@example.com",
-	#   :source => token,
-	# )
+	  begin
+	    @amount = Float(@amount).round(2)
+	  rescue
+	    flash[:error] = 'Charge not completed. Please enter a valid amount in USD ($).'
+	    redirect_to root_path
+	    return
+	  end
 
-	# Charge the user's card:
-	charge = Stripe::Charge.create(
-	  :amount => 1000,
-	  :currency => "usd",
-	  :description => "Donation on Lever App",
-	  :source => token,
-	)
-  end
+	  @amount = (@amount * 100).to_i # Must be an integer!
+
+	  if @amount < 100
+	    flash[:error] = 'Charge not completed. Donation amount must be at least $1.'
+	    redirect_to root_path
+	    return
+	  end
+
+	  Stripe::Charge.create(
+	    :amount => @amount,
+	    :currency => 'usd',
+	    :source => params[:stripeToken],
+	    :description => 'Custom donation'
+	  )
+
+	  rescue Stripe::CardError => e
+	    flash[:error] = e.message
+	    redirect_to root_path
+	  
+	end
 end
