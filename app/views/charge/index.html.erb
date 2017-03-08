@@ -45,6 +45,22 @@
 
 <script>
 
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
+
+$("#amount").keyup(function(event){
+    if(event.keyCode == 13){
+        $("#donateButton").click();
+    }
+});
+
+
 var handler = StripeCheckout.configure({
   key: '<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>',
   locale: 'auto',
