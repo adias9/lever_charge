@@ -15,6 +15,7 @@ class ChargeController < ApplicationController
 	    @amount = Float(@amount).round(2)
 	  rescue
 	    flash[:error] = 'Charge not completed. Please enter a valid amount in USD ($).'
+	    puts "error bro1\n"
 	    redirect_to root_path
 	    return
 	  end
@@ -23,6 +24,7 @@ class ChargeController < ApplicationController
 
 	  if @amount < 100
 	    flash[:error] = 'Charge not completed. Donation amount must be at least $1.'
+	    puts "error bro2\n"
 	    redirect_to root_path
 	    return
 	  end
@@ -33,10 +35,11 @@ class ChargeController < ApplicationController
 	    :source => params[:stripeToken],
 	    :description => 'Lever App Donation'
 	  )
-	  puts "one two\n"
 	  
+
 	  rescue Stripe::CardError => e
 	    flash[:error] = e.message
+	    puts "error bro3\n"
 	    redirect_to root_path
 	  
 	end
