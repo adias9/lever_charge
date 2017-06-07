@@ -33,7 +33,8 @@ class ChargeController < ApplicationController
 	    :source => params[:stripeToken],
 	    :description => 'Lever App Donation'
 	  )
-
+	  puts "one two\n"
+	  
 	  rescue Stripe::CardError => e
 	    flash[:error] = e.message
 	    redirect_to root_path
