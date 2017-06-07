@@ -36,7 +36,7 @@ class ChargeController < ApplicationController
 	    :description => 'Lever App Donation'
 	  )
 	  
-	  puts "CHARGE FIREBASE HERE FOR: $ \n" + @amount
+	  puts "CHARGE FIREBASE HERE FOR: $" + String(@amount)
 
 	  rescue Stripe::CardError => e
 	    flash[:error] = e.message
