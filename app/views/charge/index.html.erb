@@ -44,7 +44,7 @@
 </script>
 
 <script>
-
+console.log('running1');
 $(document).ready(function() {
   $(window).keydown(function(event){
     if(event.keyCode == 13) {
@@ -67,6 +67,7 @@ var handler = StripeCheckout.configure({
   name: 'Lever App',
   description: 'One-time donation',
   token: function(token) {
+    console.log('running4');
     $('#stripeToken').val(token.id);
     $('form').submit();
   }
@@ -75,6 +76,7 @@ var handler = StripeCheckout.configure({
 $('#donateButton').on('click', function(e) {
   e.preventDefault();
 
+  console.log('running2');
   $('#error_explanation').html('');
 
   var amount = $('#amount').val();
@@ -89,6 +91,8 @@ $('#donateButton').on('click', function(e) {
     $('#error_explanation').html('<p style="font-size: 40px;>Donation amount must be at least $1.</p>');
   }
   else {
+
+    console.log('running3');
     amount = amount * 100; // Needs to be an integer!
     handler.open({
       amount: Math.round(amount)
