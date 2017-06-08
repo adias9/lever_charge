@@ -36,7 +36,13 @@ class ChargeController < ApplicationController
 	    :description => 'Lever App Donation'
 	  )
 	  
-	  puts "CHARGE FIREBASE HERE FOR: $" + String(@amount)
+	  puts "CHARGE FIREBASE HERE FOR: $" + String(@amount / 100)
+
+	  system "node test.js"
+
+	  if $?.exitstatus > 0
+        puts "Test failed bruh" 
+      end
 
 	  rescue Stripe::CardError => e
 	    flash[:error] = e.message
