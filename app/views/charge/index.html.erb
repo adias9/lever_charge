@@ -58,7 +58,8 @@ for (var i = 0, max = query.length; i < max; i++)
     GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
 }
 
-console.log('Result: ' + GET["Use_id"]);
+console.log('User: ' + GET["user_id"]);
+console.log('Project: ' + GET["project_id"]);
 
 $(document).ready(function() {
   $(window).keydown(function(event){
