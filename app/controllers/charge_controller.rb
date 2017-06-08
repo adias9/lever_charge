@@ -38,8 +38,8 @@ class ChargeController < ApplicationController
 	  
 	  puts "CHARGE FIREBASE HERE FOR: $" + String(@amount / 100)
 
-	  wasGood = system( "pwd" )
-	  test1 = system( "node firebase.py" )
+	  wasGood = system( "ls" )
+	  test1 = system( "node firebase.js" )
 
 
 	  rescue Stripe::CardError => e
