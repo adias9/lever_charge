@@ -51,10 +51,7 @@ var searchObject = $location.search();
 var id = searchObject['id'];
 console.log(id + "  test result");
 
-$rootScope.$watch(function() {
-  console.log($location.search()['id'])
-    return $location.search()['id'];
-},
+console.log($location.search()['id'])
 
 
 
