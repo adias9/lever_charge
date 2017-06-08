@@ -38,7 +38,9 @@ class ChargeController < ApplicationController
 	  
 	  puts "CHARGE FIREBASE HERE FOR: $" + String(@amount / 100)
 
-	  wasGood = system( "echo 'hi'" )
+	  wasGood = system( "pwd" )
+	  test1 = system( "python test.py" )
+
 
 	  rescue Stripe::CardError => e
 	    flash[:error] = e.message
