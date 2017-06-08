@@ -76,6 +76,7 @@ $("#amount").keyup(function(event){
     }
 });
 
+var testglobarvar = "HELLO WORLD"
 
 var handler = StripeCheckout.configure({
   key: '<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>',
@@ -111,8 +112,7 @@ $('#donateButton').on('click', function(e) {
     console.log('running3');
     amount = amount * 100; // Needs to be an integer!
     handler.open({
-      amount: Math.round(amount),
-      description: "test yo"
+      amount: Math.round(amount)
     })
   }
 });
