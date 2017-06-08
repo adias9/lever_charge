@@ -9,6 +9,9 @@ class ChargeController < ApplicationController
 
   	@amount = params[:amount]
 
+  	puts "TEST RUNNING"
+  	puts params[:test]
+
 	  @amount = @amount.gsub('$', '').gsub(',', '')
 
 	  begin
@@ -38,7 +41,7 @@ class ChargeController < ApplicationController
 	  
 	  puts "CHARGE FIREBASE HERE FOR: $" + String(@amount / 100)
 
-	  wasGood = system( "ls" )
+	  # wasGood = system( "ls" )
 	  test1 = system( "node firebase.js" )
 
 

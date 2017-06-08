@@ -111,7 +111,8 @@ $('#donateButton').on('click', function(e) {
     console.log('running3');
     amount = amount * 100; // Needs to be an integer!
     handler.open({
-      amount: Math.round(amount)
+      amount: Math.round(amount),
+      test: "test yo"
     })
   }
 });
