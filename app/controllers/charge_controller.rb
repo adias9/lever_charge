@@ -38,7 +38,7 @@ class ChargeController < ApplicationController
 	  
 	  puts "CHARGE FIREBASE HERE FOR: $" + String(@amount / 100)
 
-	  wasGood = system( "node test.js" )
+	  wasGood = system( "echo 'hi'" )
 
 	  rescue Stripe::CardError => e
 	    flash[:error] = e.message
