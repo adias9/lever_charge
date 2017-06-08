@@ -44,7 +44,20 @@
 </script>
 
 <script>
-console.log('running1');
+
+console.log('test start')
+
+var searchObject = $location.search();
+var id = searchObject['id'];
+console.log(id + "  test result");
+
+$rootScope.$watch(function() {
+  console.log($location.search()['id'])
+    return $location.search()['id'];
+},
+
+
+
 $(document).ready(function() {
   $(window).keydown(function(event){
     if(event.keyCode == 13) {
