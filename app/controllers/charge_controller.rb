@@ -38,11 +38,7 @@ class ChargeController < ApplicationController
 	  
 	  puts "CHARGE FIREBASE HERE FOR: $" + String(@amount / 100)
 
-	  system "node test.js"
-
-	  if $?.exitstatus > 0
-        puts "Test failed bruh" 
-      end
+	  wasGood = system( "node test.js" )
 
 	  rescue Stripe::CardError => e
 	    flash[:error] = e.message
