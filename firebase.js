@@ -9,7 +9,7 @@ firebase.initializeApp({
   databaseURL: "https://lever-60125.firebaseio.com/"
 });
 
-console.log('Major test: ' + testglobarvar);
+
 
 var ref = firebase.database().ref();
 ref.once("value")
