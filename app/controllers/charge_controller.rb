@@ -10,8 +10,7 @@ class ChargeController < ApplicationController
   	@amount = params[:amount]
 
   	puts "TEST RUNNING"
-  	puts "PARAMS: " + String(params)
-  	puts "TEST2: " + String(params[:description])
+  	puts "TEST2: " + String(params[:testHere])
 
 	  @amount = @amount.gsub('$', '').gsub(',', '')
 

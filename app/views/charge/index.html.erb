@@ -18,6 +18,11 @@
 		  <article>
 		    <%= hidden_field_tag(:stripeToken) %>
 		  </article>
+      <!-- Start test -->
+      <article>
+        <%= hidden_field_tag(:testHere) %>
+      </article>
+      <!-- end test -->
 		  <div id="error_explanation">
 		    <% if flash[:error].present? %>
 		      <p style="font-size: 40px;"><%= flash[:error] %></p>
@@ -86,6 +91,7 @@ var handler = StripeCheckout.configure({
   token: function(token) {
     console.log('running4');
     $('#stripeToken').val(token.id);
+    $('#testHere').val("hello WORLD");
     $('form').submit();
   }
 });
