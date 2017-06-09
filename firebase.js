@@ -1,8 +1,8 @@
 console.log('test start');
 var myArgs = process.argv.slice(2);
 
-var projectID = myArgs[0];
-var userID = myArgs[1];
+var userID = myArgs[0];
+var projectID = myArgs[1];
 
 console.log('Project ID is: ' + projectID);
 console.log('User ID is: ' + userID);
