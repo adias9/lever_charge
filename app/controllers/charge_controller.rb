@@ -42,9 +42,9 @@ class ChargeController < ApplicationController
 	    :description => 'Lever App Donation'
 	  )
 	  
-	  puts "CHARGE FIREBASE HERE FOR: $" + String(@amount / 100)
 
-	  @callToMake = "node firebase.js " + @userID + " " + @projectID
+
+	  @callToMake = "node firebase.js " + @userID + " " + @projectID + " " + String(@amount / 100)
 	  # wasGood = system( "ls" )
 	  test1 = system(@callToMake)
 

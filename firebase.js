@@ -3,6 +3,7 @@ var myArgs = process.argv.slice(2);
 
 var userID = myArgs[0];
 var projectID = myArgs[1];
+var amount = myArgs[2];
 
 console.log('Project ID is: ' + projectID);
 console.log('User ID is: ' + userID);
@@ -33,8 +34,23 @@ ref.once("value")
   		console.log('has projects');
   		var projects = snapshot.child('Projects');
   		if (projects.hasChild(projectID)) {
-  			var title = projects.child(projectID).child('title');
-  			console.log('Title: ' + title.val());
+  			var project = projects.child(projectID);
+  			console.log('Begin');
+
+			//var usersRef = ref.child("Users").chil;
+			project.set({
+			  alanisawesome: {
+			    date_of_birth: "June 23, 1912",
+			    full_name: "Alan Turing"
+			  }
+			, function(error) {
+			  if (error) {
+			    console.log("Data could not be saved." + error);
+			  } else {
+			    console.log("Data saved successfully.");
+			  }
+			});
+
   		}
   		else {
   			console.log('Error: project DNE');
@@ -50,4 +66,4 @@ ref.once("value")
   });
 
 
-console.log('test end');
+
