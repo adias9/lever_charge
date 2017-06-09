@@ -33,7 +33,7 @@ ref.once("value")
   		console.log('has projects');
   		var projects = snapshot.child('Projects');
   		if (projects.hasChild(projectID)) {
-  			var title = projects.child('-KiqLms_JdnTo8d_fNZS').child('title');
+  			var title = projects.child(projectID).child('title');
   			console.log('Title: ' + title.val());
   		}
   		else {
