@@ -10,8 +10,10 @@ class ChargeController < ApplicationController
   	@amount = params[:amount]
 
   	puts "TEST RUNNING"
-  	puts "userID: " + String(params[:user_id])
-  	puts "projectID: " + String(params[:project_id])
+  	@userID = String(params[:user_id])
+  	@projectID = String(params[:project_id])
+  	puts "userID: " + @userID
+  	puts "projectID: " + @projectID
 
 	  @amount = @amount.gsub('$', '').gsub(',', '')
 
@@ -42,8 +44,9 @@ class ChargeController < ApplicationController
 	  
 	  puts "CHARGE FIREBASE HERE FOR: $" + String(@amount / 100)
 
+	  @callToMake = "node firebase.js " + @userID + " " + @projectID
 	  # wasGood = system( "ls" )
-	  test1 = system( "node firebase.js ")
+	  test1 = system(@callToMake)
 
 
 	  rescue Stripe::CardError => e
