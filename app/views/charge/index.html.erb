@@ -18,11 +18,14 @@
 		  <article>
 		    <%= hidden_field_tag(:stripeToken) %>
 		  </article>
-      <!-- Start test -->
+      <!-- Start IDs -->
       <article>
-        <%= hidden_field_tag(:testHere) %>
+        <%= hidden_field_tag(:user_id) %>
       </article>
-      <!-- end test -->
+      <article>
+        <%= hidden_field_tag(:project_id) %>
+      </article>
+      <!-- end IDs -->
 		  <div id="error_explanation">
 		    <% if flash[:error].present? %>
 		      <p style="font-size: 40px;"><%= flash[:error] %></p>
@@ -63,8 +66,8 @@ for (var i = 0, max = query.length; i < max; i++)
     GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
 }
 
-console.log('User: ' + GET["user_id"]);
-console.log('Project: ' + GET["project_id"]);
+var user_id = GET["user_id"]
+var project_id = GET["project_id"]
 
 $(document).ready(function() {
   $(window).keydown(function(event){
@@ -91,7 +94,8 @@ var handler = StripeCheckout.configure({
   token: function(token) {
     console.log('running4');
     $('#stripeToken').val(token.id);
-    $('#testHere').val("hello WORLD");
+    $('#user_id').val(user_id);
+    $('#project_id').val(project_id);
     $('form').submit();
   }
 });
