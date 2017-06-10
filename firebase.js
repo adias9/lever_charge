@@ -37,19 +37,22 @@ ref.once("value")
   			var project = projects.child(projectID);
   			console.log('Begin');
 
-			//var usersRef = ref.child("Users").chil;
-			project.set({
-			  alanisawesome: {
-			    date_of_birth: "June 23, 1912",
-			    full_name: "Alan Turing"
-			  }
-			, function(error) {
-			  if (error) {
-			    console.log("Data could not be saved." + error);
-			  } else {
-			    console.log("Data saved successfully.");
-			  }
-			});
+  			console.log(project)
+
+
+
+			// var projectRef = ref.child("Projects").child(projectID);
+
+			// projectRef.set({
+			//   featured: false
+			// }
+			// , function(error) {
+			//   if (error) {
+			//     console.log("Data could not be saved." + error);
+			//   } else {
+			//     console.log("Data saved successfully.");
+			//   }
+			// });
 
   		}
   		else {
@@ -62,7 +65,7 @@ ref.once("value")
 
   	//console.log(JSON.stringify(snapshot));
 
-  	process.exit(0)
+  	//process.exit(0)
   });
 
 
