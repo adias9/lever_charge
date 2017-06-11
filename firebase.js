@@ -31,28 +31,67 @@ ref.once("value")
   	}
 
   	if (snapshot.hasChild("Projects")) {
-  		console.log('has projects');
+
   		var projects = snapshot.child('Projects');
   		if (projects.hasChild(projectID)) {
   			var project = projects.child(projectID);
-  			console.log('Begin');
-
-  			console.log(project)
-
+  			var moneyRaised = project.child("money raised");
+  			var moneyRemaining = project.child("money remaining");
 
 
-			// var projectRef = ref.child("Projects").child(projectID);
+			var projectRef = ref.child("Projects").child(projectID);
 
-			// projectRef.set({
-			//   featured: false
-			// }
-			// , function(error) {
-			//   if (error) {
-			//     console.log("Data could not be saved." + error);
-			//   } else {
-			//     console.log("Data saved successfully.");
-			//   }
-			// });
+			projectRef.update({
+			  "money raised": Number(JSON.stringify(moneyRaised)) + Number(amount),
+			  "money remaining" : Number(JSON.stringify(moneyRemaining)) - Number(amount)
+			}
+			, function(error) {
+			  if (error) {
+			    console.log("Data could not be saved." + error);
+			  } else {
+			    console.log("Data saved successfully.");
+			  }
+				if (project.hasChild('Donors')) {
+
+					var donorsRef = ref.child("Projects").child(projectID).child("Donors");
+					var key1 = donorsRef.push().key;
+					var updates = {};
+					updates[key1] = {
+					      "UserID": userID,
+					  	  "Amount": Number(amount)
+					    };
+					donorsRef.update(updates, function(error) {
+					  if (error) {
+					    console.log("Data could not be saved." + error);
+					  } else {
+					    console.log("Data saved successfully.");
+					  }
+					  process.exit(0)
+					});
+				}
+				else {
+					var key1 = projectRef.push().key;
+					var updates = {};
+					updates[key1] = {
+					      "UserID": userID,
+					  	  "Amount": Number(amount)
+					    };
+					projectRef.update({
+					  "Donors": updates
+					}
+					, function(error) {
+					  if (error) {
+					    console.log("Data could not be saved." + error);
+					  } else {
+					    console.log("Data saved successfully.");
+					  }
+
+	  				  process.exit(0)
+					});
+				}
+			});
+
+			
 
   		}
   		else {
@@ -65,7 +104,6 @@ ref.once("value")
 
   	//console.log(JSON.stringify(snapshot));
 
-  	//process.exit(0)
   });
 
 
