@@ -163,7 +163,7 @@ function createUpdate(ref, donation, description, userID, projectID, title, imag
 		} else {
 			console.log("Data saved successfully.");
 		}
-		//if this is a personal update, add the personal update to the personalUpdates array of the user who posted it
+		
 		
 		
 		var user = snapshot.child('Users').child(userID);
@@ -173,14 +173,14 @@ function createUpdate(ref, donation, description, userID, projectID, title, imag
 		}
 		
 		userIDs.push(userID);
-		addUpdateToUsers(ref, snapshot, userIDs, key1, function() {
+		addUpdateToUsers(ref, snapshot, userIDs, key1, user, function() {
 			console.log('Added update to users successfully');
 			completion()
 		});
 	});
 }
 
-function addUpdateToUsers(ref, snapshot, userIDs, updateID, completion) {
+function addUpdateToUsers(ref, snapshot, userIDs, updateID, poster, completion) {
 	var usersRef = ref.child("Users");
 	var users = snapshot.child('Users');
 	var updates = {}
@@ -197,6 +197,15 @@ function addUpdateToUsers(ref, snapshot, userIDs, updateID, completion) {
 		} else {
 			console.log('Error: child DNE');
 		}
+	}
+
+	//if this is a personal update, add the personal update to the personalUpdates array of the user who posted it
+	if (poster["personalUpdates"] == undefined) {
+		poster["personalUpdates"] = [updateID];
+	}
+	else {
+		var posterPersonalUpdates = poster["personalUpdates"];
+		posterPersonalUpdates.push(updateID);
 	}
 
 	usersRef.update(updates, function(error) {
