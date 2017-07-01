@@ -173,14 +173,14 @@ function createUpdate(ref, donation, description, userID, projectID, title, imag
 		}
 		
 		userIDs.push(userID);
-		addUpdateToUsers(ref, snapshot, userIDs, key1, user, function() {
+		addUpdateToUsers(ref, snapshot, userIDs, key1, user.val()['FBID'], function() {
 			console.log('Added update to users successfully');
 			completion()
 		});
 	});
 }
 
-function addUpdateToUsers(ref, snapshot, userIDs, updateID, poster, completion) {
+function addUpdateToUsers(ref, snapshot, userIDs, updateID, posterID, completion) {
 	var usersRef = ref.child("Users");
 	var users = snapshot.child('Users');
 	var updates = {}
@@ -198,15 +198,19 @@ function addUpdateToUsers(ref, snapshot, userIDs, updateID, poster, completion) 
 			console.log('Error: child DNE');
 		}
 	}
-
+	console.log('test: ' + posterID)
+	var poster = users.child(posterID).val();
 	//if this is a personal update, add the personal update to the personalUpdates array of the user who posted it
-	if (poster["personalUpdates"] == undefined) {
-		poster["personalUpdates"] = [updateID];
+	if (poster.personalUpdates == undefined) {
+		poster.personalUpdates = [updateID];
+		console.log('added first personal update')
 	}
 	else {
 		var posterPersonalUpdates = poster["personalUpdates"];
 		posterPersonalUpdates.push(updateID);
+		console.log('pushed it: ' + JSON.stringify(poster["personalUpdates"]))
 	}
+	updates[posterID] = poster;
 
 	usersRef.update(updates, function(error) {
 		if (error) {
