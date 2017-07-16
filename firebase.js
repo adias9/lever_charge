@@ -210,6 +210,16 @@ function addUpdateToUsers(ref, snapshot, userIDs, updateID, posterID, completion
 		posterPersonalUpdates.push(updateID);
 		console.log('pushed it: ' + JSON.stringify(poster["personalUpdates"]))
 	}
+	//increase the contributions count for the poster
+	if (poster.contributions == undefined) {
+		poster.contributions = 1;
+	}
+	else {
+		var contributions = poster["contributions"];
+		poster.contributions = contributions + 1
+	}
+
+
 	updates[posterID] = poster;
 
 	usersRef.update(updates, function(error) {
