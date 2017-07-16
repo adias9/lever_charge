@@ -173,14 +173,14 @@ function createUpdate(ref, donation, description, userID, projectID, title, imag
 		}
 		
 		userIDs.push(userID);
-		addUpdateToUsers(ref, snapshot, userIDs, key1, user.val()['FBID'], function() {
+		addUpdateToUsers(ref, snapshot, userIDs, key1, user.val()['FBID'], donation, function() {
 			console.log('Added update to users successfully');
 			completion()
 		});
 	});
 }
 
-function addUpdateToUsers(ref, snapshot, userIDs, updateID, posterID, completion) {
+function addUpdateToUsers(ref, snapshot, userIDs, updateID, posterID, donation, completion) {
 	var usersRef = ref.child("Users");
 	var users = snapshot.child('Users');
 	var updates = {}
@@ -211,12 +211,12 @@ function addUpdateToUsers(ref, snapshot, userIDs, updateID, posterID, completion
 		console.log('pushed it: ' + JSON.stringify(poster["personalUpdates"]))
 	}
 	//increase the contributions count for the poster
-	if (poster.contributions == undefined) {
-		poster.contributions = 1;
+	if (poster.donations == undefined) {
+		poster.donations = [donation];
 	}
 	else {
-		var contributions = poster["contributions"];
-		poster.contributions = contributions + 1
+		var donations = poster["donations"];
+		donations.push(donation);
 	}
 
 
