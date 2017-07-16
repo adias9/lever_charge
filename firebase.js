@@ -211,12 +211,13 @@ function addUpdateToUsers(ref, snapshot, userIDs, updateID, posterID, donation, 
 		console.log('pushed it: ' + JSON.stringify(poster["personalUpdates"]))
 	}
 	//increase the contributions count for the poster
+	//KEY: we are rounding to be backwards compatible with int donations array in iOS app - actual donation amounts are kept in stripe and under projects
 	if (poster.donations == undefined) {
-		poster.donations = [donation];
+		poster.donations = [round(donation)];
 	}
 	else {
 		var donations = poster["donations"];
-		donations.push(donation);
+		donations.push(round(donation));
 	}
 
 
