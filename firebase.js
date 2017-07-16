@@ -219,7 +219,7 @@ function addUpdateToUsers(ref, snapshot, userIDs, updateID, posterID, donation, 
 		var donations = poster["donations"];
 		donations.push(round(donation));
 	}
-
+	poster.amountDonated += poster.amountDonated + donation;
 
 	updates[posterID] = poster;
 
